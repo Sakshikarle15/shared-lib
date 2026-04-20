@@ -13,6 +13,7 @@ def call() {
                 steps {
                     script {
                         echo "Building application..."
+                        // Auto-detect project type and build
                         if (fileExists('package.json')) {
                             sh 'npm install'
                         } else if (fileExists('requirements.txt')) {
@@ -38,21 +39,25 @@ def call() {
             stage('Security Scan') {
                 steps {
                     echo "Running security scans..."
-                    // You can add Trivy / SonarQube here later
+                    // Add security scanning tools
                 }
             }
             
             stage('Deploy') {
                 steps {
                     echo "Deploying application..."
-                    // Add Docker push or Kubernetes deploy here
+                    // Add deployment logic
                 }
             }
         }
         
         post {
-            success { echo "✅ Pipeline completed successfully!" }
-            failure { echo "❌ Pipeline failed!" }
+            success {
+                echo "Pipeline completed successfully!"
+            }
+            failure {
+                echo "Pipeline failed!"
+            }
         }
     }
 }
